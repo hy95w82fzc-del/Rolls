@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luxury 3D Menu Demo</title>
+  <link rel="stylesheet" href="luxury-3d-menu.css">
+</head>
+<body>
+
+  <!--
+    LUXURY 3D MENU
+    Все классы имеют префикс lx3d- и не пересекаются
+    с существующей разметкой сайта.
+  -->
+
+  <button class="lx3d-trigger" type="button"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="lx3d-menu">
+    <span class="lx3d-trigger__line"></span>
+    <span class="lx3d-trigger__line"></span>
+    <span class="lx3d-trigger__line"></span>
+  </button>
+
+  <aside class="lx3d-menu" id="lx3d-menu" aria-hidden="true">
+    <div class="lx3d-menu__backdrop"></div>
+    <div class="lx3d-menu__grid"></div>
+    <div class="lx3d-menu__glow lx3d-menu__glow--one"></div>
+    <div class="lx3d-menu__glow lx3d-menu__glow--two"></div>
+
+    <div class="lx3d-menu__content">
+
+      <div class="lx3d-menu__copy">
+        <div class="lx3d-menu__kicker">
+          <span></span>
+          ROLLS AUTO / PRIVATE COLLECTION
+        </div>
+
+        <h2 class="lx3d-menu__title">
+          DRIVE<br>
+          <em>THE</em><br>
+          <strong>EXTRAORDINARY.</strong>
+        </h2>
+
+        <p class="lx3d-menu__description">
+          Автомобили, которые не просто доставляют —
+          они создают впечатление.
+        </p>
+
+        <div class="lx3d-menu__status">
+          <span class="lx3d-menu__status-dot"></span>
+          PRIVATE AUTO SHOWROOM
+        </div>
+      </div>
+
+      <div class="lx3d-car">
+        <div class="lx3d-car__halo"></div>
+        <div class="lx3d-car__ring lx3d-car__ring--a"></div>
+        <div class="lx3d-car__ring lx3d-car__ring--b"></div>
+
+        <div class="lx3d-car__platform">
+          <span></span><span></span><span></span>
+        </div>
+
+        <!-- Путь к твоей существующей картинке можно заменить -->
+        <div class="lx3d-car__image-wrap">
+          <img class="lx3d-car__image"
+               src="anim-porshe.PNG"
+               alt="Premium Porsche">
+        </div>
+
+        <div class="lx3d-car__reflection"></div>
+
+        <div class="lx3d-car__label">
+          <small>01 / FEATURED</small>
+          <b>PORSCHE 911 GT3</b>
+          <span>510 HP · RWD · PERFORMANCE</span>
+        </div>
+      </div>
+
+      <nav class="lx3d-nav" aria-label="Навигация">
+        <a class="lx3d-nav__item" href="#cars" data-lx3d-close>
+          <span class="lx3d-nav__number">01</span>
+          <span class="lx3d-nav__text">Автомобили</span>
+          <span class="lx3d-nav__arrow">↗</span>
+        </a>
+        <a class="lx3d-nav__item" href="#calc" data-lx3d-close>
+          <span class="lx3d-nav__number">02</span>
+          <span class="lx3d-nav__text">Калькулятор</span>
+          <span class="lx3d-nav__arrow">↗</span>
+        </a>
+        <a class="lx3d-nav__item" href="#steps" data-lx3d-close>
+          <span class="lx3d-nav__number">03</span>
+          <span class="lx3d-nav__text">Как мы работаем</span>
+          <span class="lx3d-nav__arrow">↗</span>
+        </a>
+        <a class="lx3d-nav__item" href="#faq" data-lx3d-close>
+          <span class="lx3d-nav__number">04</span>
+          <span class="lx3d-nav__text">FAQ</span>
+          <span class="lx3d-nav__arrow">↗</span>
+        </a>
+        <a class="lx3d-nav__item lx3d-nav__item--accent" href="#req" data-lx3d-close>
+          <span class="lx3d-nav__number">05</span>
+          <span class="lx3d-nav__text">Подобрать автомобиль</span>
+          <span class="lx3d-nav__arrow">↗</span>
+        </a>
+      </nav>
+
+    </div>
+
+    <div class="lx3d-menu__footer">
+      <span>ROLLS AUTO</span>
+      <span>GERMANY · EUROPE · WORLDWIDE</span>
+      <span>SCROLL / EXPLORE</span>
+    </div>
+  </aside>
+
+  <script src="luxury-3d-menu.js"></script>
+</body>
+</html>

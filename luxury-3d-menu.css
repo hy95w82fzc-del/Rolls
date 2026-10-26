@@ -1,0 +1,568 @@
+.ra-simple-header {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+
+  height: 82px;
+
+  padding: 0 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  z-index: 99999;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(5, 8, 14, .94),
+      rgba(5, 8, 14, .72),
+      transparent
+    );
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* ---------------------------------------------------------
+   LOGO
+   --------------------------------------------------------- */
+
+.ra-simple-logo {
+  color: #fff;
+
+  text-decoration: none;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: .2em;
+
+  white-space: nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   DESKTOP NAV
+   --------------------------------------------------------- */
+
+.ra-simple-desktop-nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+}
+
+
+.ra-simple-desktop-nav a {
+  position: relative;
+
+  color: rgba(255,255,255,.72);
+
+  text-decoration: none;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+
+  transition:
+    color .25s ease;
+}
+
+
+.ra-simple-desktop-nav a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: -7px;
+
+  height: 1px;
+
+  background: #168cff;
+
+  transform: scaleX(0);
+
+  transform-origin: right;
+
+  transition:
+    transform .3s ease;
+}
+
+
+.ra-simple-desktop-nav a:hover {
+  color: #fff;
+}
+
+
+.ra-simple-desktop-nav a:hover::after {
+  transform: scaleX(1);
+
+  transform-origin: left;
+}
+
+
+/* Последняя ссылка */
+
+.ra-simple-nav-main {
+  color: #69b8ff !important;
+}
+
+
+/* ---------------------------------------------------------
+   BURGER
+   На компьютере скрыт
+   --------------------------------------------------------- */
+
+.ra-simple-burger {
+  display: none;
+
+  width: 48px;
+  height: 48px;
+
+  padding: 0;
+
+  border: 1px solid rgba(255,255,255,.2);
+
+  border-radius: 50%;
+
+  background: rgba(5,10,18,.8);
+
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+.ra-simple-burger span {
+  display: block;
+
+  width: 21px;
+  height: 2px;
+
+  border-radius: 2px;
+
+  background: #fff;
+
+  transition:
+    transform .3s ease,
+    opacity .2s ease;
+}
+
+
+/* Burger -> X */
+
+body.ra-simple-menu-open
+.ra-simple-burger span:nth-child(1) {
+  transform:
+    translateY(7px)
+    rotate(45deg);
+}
+
+
+body.ra-simple-menu-open
+.ra-simple-burger span:nth-child(2) {
+  opacity: 0;
+}
+
+
+body.ra-simple-menu-open
+.ra-simple-burger span:nth-child(3) {
+  transform:
+    translateY(-7px)
+    rotate(-45deg);
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE MENU
+   --------------------------------------------------------- */
+
+.ra-simple-mobile-menu {
+  display: none;
+}
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.ra-simple-mobile-menu {
+  position: fixed !important;
+  inset: 0 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+
+  display: none;
+
+  background: #080b10 !important;
+
+  z-index: 999999 !important;
+
+  padding:
+    calc(90px + env(safe-area-inset-top))
+    24px
+    calc(30px + env(safe-area-inset-bottom));
+
+  box-sizing: border-box !important;
+
+  overflow-y: auto !important;
+}
+
+/* ОТКРЫТОЕ МЕНЮ */
+body.ra-simple-menu-open .ra-simple-mobile-menu {
+  display: block !important;
+}
+
+/* Верх */
+.ra-simple-mobile-top {
+  display: block !important;
+
+  color: #ffffff !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+
+  margin-bottom: 45px !important;
+}
+
+/* Список */
+.ra-simple-mobile-nav {
+  display: flex !important;
+  flex-direction: column !important;
+
+  width: 100% !important;
+  gap: 0 !important;
+}
+
+/* КАЖДАЯ ССЫЛКА */
+.ra-simple-mobile-nav a {
+  display: flex !important;
+  align-items: center !important;
+
+  width: 100% !important;
+  min-height: 70px !important;
+
+  box-sizing: border-box !important;
+
+  color: #ffffff !important;
+  background: transparent !important;
+
+  text-decoration: none !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  position: relative !important;
+  z-index: 1000000 !important;
+
+  border-bottom: 1px solid rgba(255,255,255,.15) !important;
+
+  font-family: Arial, sans-serif !important;
+}
+
+/* Номер */
+.ra-simple-mobile-nav a span {
+  display: block !important;
+
+  width: 45px !important;
+
+  color: #6f7b8c !important;
+
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* Текст */
+.ra-simple-mobile-nav a strong {
+  display: block !important;
+
+  flex: 1 !important;
+
+  color: #ffffff !important;
+
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+  font-weight: 600 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Стрелка */
+.ra-simple-mobile-nav a i {
+  display: block !important;
+
+  color: #ffffff !important;
+
+  font-size: 22px !important;
+  font-style: normal !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Низ */
+.ra-simple-mobile-bottom {
+  display: block !important;
+
+  margin-top: 45px !important;
+
+  color: #667080 !important;
+
+  font-family: Arial, sans-serif !important;
+  font-size: 10px !important;
+  letter-spacing: 2px !important;
+}
+
+/* =========================
+   BURGER
+========================= */
+
+.ra-simple-burger {
+  display: none;
+
+  position: relative !important;
+
+  width: 46px !important;
+  height: 46px !important;
+
+  padding: 10px !important;
+  margin: 0 !important;
+
+  border: 0 !important;
+  background: transparent !important;
+
+  z-index: 1000001 !important;
+}
+
+.ra-simple-burger span {
+  display: block !important;
+
+  width: 24px !important;
+  height: 2px !important;
+
+  margin: 5px auto !important;
+
+  background: #ffffff !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+  .ra-simple-header {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 72px !important;
+
+    box-sizing: border-box !important;
+
+    padding:
+      0 18px
+      !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    z-index: 1000000 !important;
+
+    background: rgba(8,11,16,.96) !important;
+  }
+
+  .ra-simple-desktop-nav {
+    display: none !important;
+  }
+
+  .ra-simple-burger {
+    display: block !important;
+  }
+
+  .ra-simple-logo {
+    display: block !important;
+
+    color: #ffffff !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+
+    text-decoration: none !important;
+  }
+}
+
+/* =====================================================
+   ROLLS AUTO — MOBILE FIX
+   Анимация + синие линии + видимые ссылки
+===================================================== */
+
+@media (max-width: 800px) {
+
+  /* Само меню */
+  .ra-simple-mobile-menu {
+    display: block !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    pointer-events: none !important;
+
+    transform: translateY(-18px) !important;
+
+    transition:
+      opacity .35s ease,
+      transform .35s ease,
+      visibility .35s ease !important;
+  }
+
+  /* Открытие */
+  body.ra-simple-menu-open .ra-simple-mobile-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    pointer-events: auto !important;
+
+    transform: translateY(0) !important;
+  }
+
+  /* Синие декоративные линии */
+  .ra-simple-mobile-menu::before,
+  .ra-simple-mobile-menu::after {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: -20% !important;
+
+    width: 140% !important;
+
+    height: 1px !important;
+
+    background: rgba(55, 150, 255, .55) !important;
+
+    pointer-events: none !important;
+
+    transform: rotate(-8deg) !important;
+  }
+
+  .ra-simple-mobile-menu::before {
+    top: 34% !important;
+  }
+
+  .ra-simple-mobile-menu::after {
+    top: 68% !important;
+  }
+
+  /* Ссылки поверх линий */
+  .ra-simple-mobile-nav {
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .ra-simple-mobile-nav a {
+    position: relative !important;
+    z-index: 11 !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transform: translateX(0) !important;
+
+    transition:
+      opacity .35s ease,
+      transform .4s ease !important;
+  }
+
+  /* Начальное состояние ссылок */
+  body:not(.ra-simple-menu-open)
+  .ra-simple-mobile-nav a {
+    opacity: 0 !important;
+    transform: translateX(25px) !important;
+  }
+
+  /* Анимация ссылок при открытии */
+  body.ra-simple-menu-open
+  .ra-simple-mobile-nav a {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  /* Задержка для красивого появления */
+  body.ra-simple-menu-open
+  .ra-simple-mobile-nav a:nth-child(1) {
+    transition-delay: .10s !important;
+  }
+
+  body.ra-simple-menu-open
+  .ra-simple-mobile-nav a:nth-child(2) {
+    transition-delay: .20s !important;
+  }
+
+  body.ra-simple-menu-open
+  .ra-simple-mobile-nav a:nth-child(3) {
+    transition-delay: .30s !important;
+  }
+
+  body.ra-simple-menu-open
+  .ra-simple-mobile-nav a:nth-child(4) {
+    transition-delay: .40s !important;
+  }
+
+  body.ra-simple-menu-open
+  .ra-simple-mobile-nav a:nth-child(5) {
+    transition-delay: .50s !important;
+  }
+
+  /* Текст точно поверх декоративных линий */
+  .ra-simple-mobile-top,
+  .ra-simple-mobile-bottom {
+    position: relative !important;
+    z-index: 20 !important;
+  }
+
+  /* Бургер */
+  .ra-simple-burger {
+    position: relative !important;
+    z-index: 1000001 !important;
+  }
+
+}
