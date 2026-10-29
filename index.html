@@ -201,7 +201,7 @@
 
             <div class="car-glow"></div>
 
-            <img id="carImage" class="car-image active" src="anim-porshe.PNG" alt="Premium SUV">
+            <img id="carImage" class="car-image active" src="anim-porshe.PNG" alt="Porsche 911 GT3" fetchpriority="high" decoding="async">
 
             <div class="car-shadow"></div>
 
@@ -355,7 +355,7 @@
         <!-- BMW M440 -->
         <div class="car-card" data-category="sport">
             <div class="car-img" >
-                <img src="images/bmw-m440/3.webp" alt="BMW M440">
+                <img src="images/bmw-m440/3.webp" alt="BMW M440" loading="lazy" decoding="async">
                 <span class="bage-card">В наличии</span>
             </div>
 
@@ -392,7 +392,7 @@
         <!-- JEEP WRANGLER RUBICON -->
         <div class="car-card" data-category="jeep">
             <div class="car-img">
-                <img src="images/red-wrangler/2.webp" alt="Jeep Wrangler Rubicon">
+                <img src="images/red-wrangler/2.webp" alt="Jeep Wrangler Rubicon" loading="lazy" decoding="async">
                 <span class="bage-card">В наличии</span>
             </div>
 
@@ -425,11 +425,40 @@
             </div>
         </div>
 
+        <!-- JEEP GRAND CHEROKEE -->
+        <div class="car-card" data-category="jeep">
+            <div class="car-img">
+                <img src="images/jeep-cheroke/IMG_3551.jpg" alt="Jeep Grand Cherokee 2018" loading="lazy" decoding="async">
+                <span class="bage-card">В наличии</span>
+            </div>
+
+            <div class="car-body">
+                <div class="body-top">
+                    <div>
+                        <span class="car-company">JEEP</span>
+                        <h3 class="car-model">Grand Cherokee</h3>
+                    </div>
+                    <span class="car-year">2018</span>
+                </div>
+
+                <div class="car-spaces">
+                    <span>⚡ 360 л.с.</span>
+                    <span>⚙️ 5.7L</span>
+                    <span>🛣 93 000 км</span>
+                </div>
+
+                <div class="card-bottom">
+                    <div><small>Цена:</small><strong>2 500 000 ₽</strong></div>
+                    <button onclick="openCar(3)">Подробнее <span>→</span></button>
+                </div>
+            </div>
+        </div>
+
 
         <!-- JEEP WRANGLER SAHARA -->
         <div class="car-card" data-category="jeep">
             <div class="car-img">
-                <img src="images/beliy-wrangler/6.webp" alt="Jeep Wrangler Sahara">
+                <img src="images/beliy-wrangler/6.webp" alt="Jeep Wrangler Sahara" loading="lazy" decoding="async">
                 <span class="bage-card">В наличии</span>
             </div>
 
@@ -1017,6 +1046,27 @@
 
             description:
                 "Jeep Wrangler Rubicon с 2.0L Turbo двигателем мощностью 270 л.с. и системой полного привода 4x4."
+        },
+
+        {
+            company: "JEEP",
+            name: "Grand Cherokee",
+            photos: [
+                "images/jeep-cheroke/IMG_3551.jpg",
+                "images/jeep-cheroke/IMG_3552.jpg",
+                "images/jeep-cheroke/IMG_3553.jpg",
+                "images/jeep-cheroke/IMG_3569.jpg"
+            ],
+            year: "2018",
+            power: "360 л.с.",
+            engine: "5.7L",
+            mileage: "93 000 км",
+            drive: "Полный",
+            gearbox: "Автомат",
+            acceleration: "7.3 сек",
+            speed: "225 км/ч",
+            price: "2 500 000 ₽",
+            description: "Jeep Grand Cherokee 2018 года с двигателем 5.7L. Хорошее техническое состояние, автомобиль на ходу. Пробег — 93 000 км."
         }
 
     ];
@@ -1035,6 +1085,29 @@
     ===================================== */
 
     let modalCurrentPhoto = 0;
+    const preloadedCarPhotos = new Map();
+
+    function preloadCarPhoto(src) {
+        if (preloadedCarPhotos.has(src)) return;
+        const preload = new Image();
+        preload.decoding = "async";
+        preloadedCarPhotos.set(src, preload);
+        preload.src = src;
+    }
+
+    function preloadCarGallery(index) {
+        cars[index]?.photos.forEach(preloadCarPhoto);
+    }
+
+    document.querySelectorAll(".car-card button[onclick^='openCar']").forEach(button => {
+        const index = Number(button.getAttribute("onclick").match(/\d+/)?.[0]);
+        button.addEventListener("mouseenter", () => preloadCarGallery(index), { once: true });
+        button.addEventListener("focus", () => preloadCarGallery(index), { once: true });
+    });
+
+    const warmFirstPhotos = () => cars.forEach(car => preloadCarPhoto(car.photos[0]));
+    if ("requestIdleCallback" in window) requestIdleCallback(warmFirstPhotos, { timeout: 1500 });
+    else window.addEventListener("load", warmFirstPhotos, { once: true });
 
 
 
@@ -1044,14 +1117,14 @@
 
     function openCar(carIndex) {
 
+        if (!cars[carIndex]) return;
+
         modalCurrentCar = carIndex;
         modalCurrentPhoto = 0;
 
-        showCar();
-
         document.getElementById("carModal").style.display = "flex";
-
         document.body.style.overflow = "hidden";
+        showCar(false);
     }
 
 
@@ -1060,33 +1133,51 @@
        ПОКАЗАТЬ МАШИНУ
     ===================================== */
 
-    function showCar() {
+    function showCar(animate = true) {
         const car = cars[modalCurrentCar];
         const image = document.getElementById("modalCarImage");
+        if (!car || !image || !car.photos.length) return;
 
-        image.classList.add("photo-changing");
+        const photo = car.photos[modalCurrentPhoto];
+        image.alt = `${car.company} ${car.name}`;
 
-        setTimeout(() => {
-            image.src = car.photos[modalCurrentPhoto];
-            image.alt = car.company + " " + car.name;
-
-            document.getElementById("modalCarCompany").textContent = car.company;
-            document.getElementById("modalCarName").textContent = car.name;
-            document.getElementById("modalCarDescription").textContent = car.description;
-            document.getElementById("modalCarYear").textContent = car.year;
-            document.getElementById("modalCarPower").textContent = car.power;
-            document.getElementById("modalCarEngine").textContent = car.engine;
-            document.getElementById("modalCarMileage").textContent = car.mileage;
-            document.getElementById("modalCarDrive").textContent = car.drive;
-            document.getElementById("modalCarGearbox").textContent = car.gearbox;
-            document.getElementById("modalCarAcceleration").textContent = car.acceleration;
-            document.getElementById("modalCarSpeed").textContent = car.speed;
-            document.getElementById("modalCarPrice").textContent = car.price;
-
-            image.onload = () => {
-                image.classList.remove("photo-changing");
+        if (!animate) {
+            image.classList.remove("photo-changing");
+            image.src = photo;
+        } else {
+            const swapPhoto = () => {
+                image.classList.add("photo-changing");
+                window.setTimeout(() => {
+                    image.onload = () => image.classList.remove("photo-changing");
+                    image.onerror = () => image.classList.remove("photo-changing");
+                    image.src = photo;
+                }, 250);
             };
-        }, 150);
+            const cachedPhoto = preloadedCarPhotos.get(photo);
+            if (cachedPhoto?.complete && cachedPhoto.naturalWidth > 0) swapPhoto();
+            else {
+                const preload = cachedPhoto || new Image();
+                preloadedCarPhotos.set(photo, preload);
+                preload.onload = () => {
+                    swapPhoto();
+                };
+                preload.onerror = () => image.classList.remove("photo-changing");
+                preload.src = photo;
+            }
+        }
+
+        document.getElementById("modalCarCompany").textContent = car.company;
+        document.getElementById("modalCarName").textContent = car.name;
+        document.getElementById("modalCarDescription").textContent = car.description;
+        document.getElementById("modalCarYear").textContent = car.year;
+        document.getElementById("modalCarPower").textContent = car.power;
+        document.getElementById("modalCarEngine").textContent = car.engine;
+        document.getElementById("modalCarMileage").textContent = car.mileage;
+        document.getElementById("modalCarDrive").textContent = car.drive;
+        document.getElementById("modalCarGearbox").textContent = car.gearbox;
+        document.getElementById("modalCarAcceleration").textContent = car.acceleration;
+        document.getElementById("modalCarSpeed").textContent = car.speed;
+        document.getElementById("modalCarPrice").textContent = car.price;
     }
 
 
@@ -1104,7 +1195,7 @@
             modalCurrentPhoto = 0;
         }
 
-        showCar();
+        showCar(true);
 
     }
 
@@ -1121,7 +1212,7 @@
             modalCurrentPhoto = car.photos.length - 1;
         }
 
-        showCar();
+        showCar(true);
 
     }
 

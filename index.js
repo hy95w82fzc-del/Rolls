@@ -125,9 +125,9 @@ function changeCar(type) {
         return;
     }
 
-    isAnimating = true;
-
     const newCar = heroCars[type];
+    if (!newCar || !carImage || !carName || !carDescription || !carNumber || !carPower || !carSeats || !carDrive) return;
+    isAnimating = true;
 
     /* =====================================
        BUTTON
@@ -141,7 +141,7 @@ function changeCar(type) {
         `[data-car="${type}"]`
     );
 
-    selectedButton.classList.add("active");
+    selectedButton?.classList.add("active");
 
 
     /* =====================================
@@ -268,24 +268,15 @@ buttons.forEach(button => {
 /* ===== ФИЛЬТР КАТЕГОРИЙ АВТОМОБИЛЕЙ ===== */
 
 document.querySelectorAll(".car-category").forEach(button => {
-button.addEventListener("click", () => {
-const category = button.dataset.category;
-
-
+  button.addEventListener("click", () => {
+    const category = button.dataset.category;
     document.querySelectorAll(".car-category").forEach(item => {
-        item.classList.toggle("active", item === button);
+      item.classList.toggle("active", item === button);
     });
-
     document.querySelectorAll("#cars .car-card").forEach(card => {
-        const matches =
-            category === "all" ||
-            card.dataset.category === category;
-
-        card.hidden = !matches;
+      card.hidden = category !== "all" && card.dataset.category !== category;
     });
-});
-
-
+  });
 });
 
 
@@ -323,12 +314,10 @@ if (sendButton && statusBox) {
         }
       );
 
-      const result = await response.json();
+      const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.ok) {
-        throw new Error(
-          result.error || "Не удалось отправить заявку."
-        );
+        throw new Error(result.error || "Не удалось отправить заявку.");
       }
 
       statusBox.textContent =
@@ -338,8 +327,6 @@ if (sendButton && statusBox) {
       document.getElementById("f-phone").value = "";
       document.getElementById("f-text").value = "";
     } catch (error) {
-      console.error("Ошибка отправки заявки:", error);
-
       statusBox.textContent =
         error.message || "Ошибка отправки. Попробуй ещё раз.";
     } finally {
